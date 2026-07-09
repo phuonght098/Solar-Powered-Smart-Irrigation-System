@@ -16,16 +16,20 @@ An ESP8266-based solar-powered smart irrigation system with real-time environmen
 1. Introduction
 2. Features
 3. Hardware
-4. System Architecture
-5. Software
-6. Getting Started
-7. Results
-8. Future Work
-9. Contact
-10. License
+4. Software
+5. Getting Started
+6. Results
+7. Future Work
+8. Contact
+9. License
 
 # 1. Introduction
 
+This project presents a solar-powered smart irrigation system designed to automatically monitor environmental conditions and irrigate plants only when necessary.
+
+The system is built around the ESP8266 microcontroller and integrates multiple sensors including soil moisture, temperature, humidity, light intensity, and CO₂ concentration. Sensor data are uploaded to Firebase Realtime Database while users can remotely monitor and manually control the irrigation process through the Blynk IoT mobile application.
+
+The primary objective of this project is to reduce water consumption, enable renewable-energy-powered agriculture, and provide a low-cost IoT solution suitable for home gardens and small-scale farming.
 # 2. Features
 
 🌞 Solar Powered
@@ -65,21 +69,105 @@ An ESP8266-based solar-powered smart irrigation system with real-time environmen
 | Pump | 1 | 
 
 ## 3.2 Block Diagram
-'''
-graph TD
-    Power(["<b>Power Block</b><br>(Solar panel, charging circuit, <br>storage battery, boost converter)"])
-    Sensor(["<b>Sensor Block</b><br>(DHT11, push button)"])
-    Control(["<b>Control Block</b><br>(ESP8266)"])
-    UI(["<b>Interaction Block</b><br>(Blynk app)"])
-    Output(["<b>Output Block</b><br>(Relay, display)"])
 
-    %% Các đường mũi tên kết nối
-    Power --> Control
-    Sensor --> Control
-    Control --> Output
-    
-    %% Đường nét đứt 2 chiều thể hiện kết nối WiFi
-    Control -. "WiFi" .-> UI
-    UI -. "WiFi" .-> Control
-    '''
+<img width="671" height="516" alt="image" src="https://github.com/user-attachments/assets/1e1a40fe-1b07-475a-9774-b566083ccca7" />
+
 ## 3.3 Schematic 
+
+<img width="833" height="532" alt="image" src="https://github.com/user-attachments/assets/52f880c4-d74b-4bec-aaa0-a83580f1fd0d" />
+
+# 4. Software
+
+```mermaid
+graph TD
+
+START([ESP8266])
+
+START --> READ[Read Sensors]
+
+READ --> DECISION{Soil Moisture Low?}
+
+DECISION -- Yes --> PUMP[Turn ON Pump]
+
+DECISION -- No --> OFF[Pump OFF]
+
+PUMP --> UPDATE
+
+OFF --> UPDATE
+
+UPDATE[Update Firebase]
+
+UPDATE --> BLYNK[Update Blynk]
+
+BLYNK --> COMMAND{Manual Command?}
+
+COMMAND -- Yes --> RELAY
+
+COMMAND -- No --> LOOP
+
+RELAY[Control Relay]
+
+RELAY --> LOOP
+
+LOOP([Repeat])
+
+```
+
+# 5. Getting Started
+
+## Software Requirements
+
+- Arduino IDE
+- ESP8266 Board Package
+- Blynk Library
+- Firebase ESP Client
+- DHT Library
+- ArduinoJson
+
+## Blynk Configuration
+### Configure Blynk
+<img width="286" height="635" alt="image" src="https://github.com/user-attachments/assets/f8767e9a-fac0-4de3-a2f7-bc4fa29f9d22" />
+
+1. Create a Template on Blynk IoT.
+
+2. Create Datastreams.
+
+3. Copy
+
+- Template ID
+- Device Name
+- Authentication Token
+
+4. Replace them in
+```cpp
+#define BLYNK_TEMPLATE_ID ""
+#define BLYNK_TEMPLATE_NAME ""
+#define BLYNK_AUTH_TOKEN ""
+```
+
+# 6. Results
+
+
+# 7. Future Work
+
+- Integrate weather forecast APIs for predictive irrigation.
+- Add machine learning models for irrigation optimization.
+- Support multiple irrigation zones.
+- Improve battery charging efficiency using MPPT algorithms.
+- Develop a web dashboard in addition to the Blynk mobile application.
+
+# 8. Contact
+👤 Huynh Thanh Phuong
+
+📧 phuong0342098446@gmail.com
+
+💻 https://github.com/phuonght098
+
+🔗 LinkedIn
+
+If you find this project useful, please consider giving it a ⭐ on GitHub.
+
+# . License
+This project is licensed under the MIT License.
+
+See the LICENSE file for details.
