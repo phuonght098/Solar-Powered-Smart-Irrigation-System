@@ -189,7 +189,7 @@ Battery Backup Time = 46.6 Wh / 32 Wh/day
 
 # 6. Results
 
-**Battery Backup Test:** The system was experimentally tested without solar charging and achieved approximately **32 hours of continuous operation** using only the battery pack.
+- **Battery Backup Test:** The system was experimentally tested without solar charging and achieved approximately **32 hours of continuous operation** using only the battery pack.
 
 - **Long-term Stability Test:** The system was continuously evaluated for **two weeks** under normal operating conditions and demonstrated stable performance in environmental monitoring, scheduled irrigation, and wireless communication.
 
