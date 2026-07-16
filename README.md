@@ -208,7 +208,7 @@ Battery Backup Time = 46.6 Wh / 32 Wh/day
 
 💻 https://github.com/phuonght098
 
-🔗 LinkedIn
+🔗 LinkedIn: https://www.linkedin.com/in/phuonght098/
 
 If you find this project useful, please consider giving it a ⭐ on GitHub.
 
