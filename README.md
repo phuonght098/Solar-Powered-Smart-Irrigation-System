@@ -78,40 +78,9 @@ The primary objective of this project is to reduce water consumption, enable ren
 
 # 4. Software
 
-```mermaid
-graph TD
+<img width="420" height="648" alt="image" src="https://github.com/user-attachments/assets/310ed8e9-b935-4fc0-ae00-3dde36f608d2" />
 
-START([ESP8266])
 
-START --> READ[Read Sensors]
-
-READ --> DECISION{Soil Moisture Low?}
-
-DECISION -- Yes --> PUMP[Turn ON Pump]
-
-DECISION -- No --> OFF[Pump OFF]
-
-PUMP --> UPDATE
-
-OFF --> UPDATE
-
-UPDATE[Update Firebase]
-
-UPDATE --> BLYNK[Update Blynk]
-
-BLYNK --> COMMAND{Manual Command?}
-
-COMMAND -- Yes --> RELAY
-
-COMMAND -- No --> LOOP
-
-RELAY[Control Relay]
-
-RELAY --> LOOP
-
-LOOP([Repeat])
-
-```
 
 # 5. Getting Started
 
