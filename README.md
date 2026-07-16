@@ -61,12 +61,85 @@ The primary objective of this project is to reduce water consumption, enable ren
 | Solar panel 6v 10W | 1 |
 | ESP8266 | 1 |
 | DHT11 | 1 |
-| 18650 | 3 |
+| 18650 (4200mAh) | 3 |
 | TP4056 | 1 |
 | Relay | 1 |
 | XL6009 | 2 |
 | LCD1602 | 1 |
 | Pump | 1 | 
+
+## Energy Consumption Analysis
+
+The estimated daily energy consumption of the system is summarized in the table below.
+
+| Component | Operating Time | Power | Daily Energy Consumption |
+| :--- | :---: | ---: | ---: |
+| ESP8266 + LCD + DHT11 | 24 hours | ≈ 1.2 W | 1.2 × 24 = **28.8 Wh** |
+| Water Pump (12 V, 6 W) | 5 cycles × 10 s = 50 s/day | 6 W | 6 × (50 / 3600) ≈ **0.085 Wh** |
+| **Total** | | | **≈ 28.885 Wh/day** |
+
+Assuming the **XL6009 boost converter** has an efficiency of approximately **90%**, the total energy drawn from the battery per day is
+
+```text
+E_battery = 28.885 / 0.9 ≈ 32 Wh/day
+```
+
+---
+
+## Solar Energy Estimation
+
+The system uses a **6 V, 10 W solar panel**.
+
+Assuming approximately **6 hours of effective sunlight** per day, the theoretical harvested energy is
+
+```text
+10 W × 6 h = 60 Wh/day
+```
+
+Considering practical conditions such as sunlight angle, dust, and weather, the actual solar panel efficiency is assumed to be approximately **70%**.
+
+```text
+Effective solar energy = 60 × 0.7 = 42 Wh/day
+```
+
+After accounting for the charging efficiency of the **TP4056 charging module** (approximately **90%**), the actual energy stored in the battery becomes
+
+```text
+42 × 0.9 ≈ 37 Wh/day
+```
+
+Therefore, the daily energy surplus is
+
+```text
+37 Wh − 32 Wh ≈ 5 Wh/day
+```
+
+This surplus compensates for battery losses and helps maintain the battery at a safe operating level.
+
+---
+
+## Battery Backup Estimation
+
+The system is powered by **three 18650 Li-ion batteries connected in parallel**.
+
+- Battery capacity (per cell): **4200 mAh**
+- Nominal voltage: **3.7 V**
+
+Therefore, the total stored battery energy is
+
+```text
+E = 3.7 × 12.6 ≈ 46.6 Wh
+```
+
+During nighttime or in the absence of solar energy, the system is powered solely by the battery pack.
+
+The estimated battery backup time is
+
+```text
+Battery Backup Time = 46.6 Wh / 32 Wh/day
+                    ≈ 1.456 days
+                    ≈ 35 hours
+```
 
 ## 3.2 Block Diagram
 
@@ -115,6 +188,10 @@ The primary objective of this project is to reduce water consumption, enable ren
 ```
 
 # 6. Results
+
+**Battery Backup Test:** The system was experimentally tested without solar charging and achieved approximately **32 hours of continuous operation** using only the battery pack.
+
+- **Long-term Stability Test:** The system was continuously evaluated for **two weeks** under normal operating conditions and demonstrated stable performance in environmental monitoring, scheduled irrigation, and wireless communication.
 
 
 # 7. Future Work
